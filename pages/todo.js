@@ -12,11 +12,25 @@ export default function Home() {
   const [re, setRe] = useState(0);
 
   useEffect(() => {
-    const fetchUser = async () => {
-      const user = await api.getUser();
-      setUser(user);
+    const session = supabase.auth.getSession();
+    setUser(session?.user);
+    const { data: subscription } = supabase.auth.onAuthStateChange(
+      (event, session) => {
+        switch (event) {
+          case 'SIGNED_IN':
+            setUser(session?.user);
+            break;
+          case 'SIGNED_OUT':
+            console.log('signed out');
+            setUser(null);
+            break;
+          default:
+        }
+      }
+    );
+    return () => {
+      subscription?.subscription.unsubscribe();
     };
-    fetchUser();
   }, []);
 
   return (
@@ -31,10 +45,10 @@ export default function Home() {
         </Button>
         <Button
           onClick={() => {
-            router.push('/todo');
+            router.push('/');
           }}
         >
-          Go to todo
+          Go home
         </Button>
         <Button
           onClick={() => {
@@ -42,16 +56,6 @@ export default function Home() {
           }}
         >
           Info about user
-        </Button>
-        <Button
-          onClick={async () => {
-            const {
-              data: { user },
-            } = await supabase.auth.getUser();
-            console.log(user);
-          }}
-        >
-          Get user
         </Button>
         {user ? (
           <>
