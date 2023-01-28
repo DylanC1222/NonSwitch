@@ -1,10 +1,10 @@
 import { Container } from '@mui/material';
-import SignIn from '../components/signIn';
+import SignInForm from '../components/SignInForm';
 
 export default function signIn() {
   return (
     <Container>
-      <SignIn />
+      <SignInForm />
     </Container>
   );
 }

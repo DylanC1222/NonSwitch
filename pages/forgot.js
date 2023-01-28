@@ -1,10 +1,10 @@
 import { Container } from '@mui/material';
-import SignUpForm from '../components/SignUpForm';
+import ForgotPasswordForm from '../components/ForgotPasswordForm';
 
 export default function signUp() {
   return (
     <Container>
-      <SignUpForm />
+      <ForgotPasswordForm />
     </Container>
   );
 }
