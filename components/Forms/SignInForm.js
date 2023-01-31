@@ -87,6 +87,16 @@ export default function SignInForm() {
             </Grid>
           </Grid>
         </Box>
+        <Button
+          fullWidth
+          variant="outlined"
+          sx={{ mt: 3, mb: 2 }}
+          onClick={() => {
+            api.signInOAuth();
+          }}
+        >
+          Sign In With Google
+        </Button>
       </Box>
       <Copyright sx={{ mt: 8, mb: 4 }} />
     </Container>
